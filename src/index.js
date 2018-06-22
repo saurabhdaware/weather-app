@@ -1,78 +1,44 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './index.css';
+import axios from 'axios';
 
-class Square extends React.Component {
-
+  class Navbar extends React.Component {
     render() {
       return (
-        <button className="square" onClick={() => this.props.onClick()}>
-          {this.props.value}
-        </button>
+        <h1>Navbar</h1>
       );
     }
   }
-  
-  class Board extends React.Component {
-    constructor(props){
-        super(props);
-        this.state = {
-            squares:Array(9).fill(null),
-        }
-    }
-    
-    handleClick(i) {
-        const squares = this.state.squares.slice();
-        squares[i] = 'X';
-        this.setState({squares: squares});
-        console.log(squares);
-    }
 
-    renderSquare(i) {
-        return (
-          <Square
-            value={this.state.squares[i]}
-            onClick={() => this.handleClick(i)}
-          />
-        );
+  class Content extends React.Component{
+    constructor(){
+      super();
+      this.state={
+        name:'',
+        mainData:{},
+        icon:'',
       }
-  
-    render() {
-      const status = 'Next player: X';
-  
-      return (
-        <div>
-          <div className="status">{status}</div>
-          <div className="board-row">
-            {this.renderSquare(0)}
-            {this.renderSquare(1)}
-            {this.renderSquare(2)}
-          </div>
-          <div className="board-row">
-            {this.renderSquare(3)}
-            {this.renderSquare(4)}
-            {this.renderSquare(5)}
-          </div>
-          <div className="board-row">
-            {this.renderSquare(6)}
-            {this.renderSquare(7)}
-            {this.renderSquare(8)}
-          </div>
-        </div>
-      );
+    }
+    render(){
+      axios.get('http://api.openweathermap.org/data/2.5/weather?lat=35&lon=139&appid=ef5f4331f2a1bbacf3b7f7924e9f9eb7')
+      .then((weatherInfo)=>{
+        console.log(weatherInfo.data);
+      })
+      return(
+        <h1>Content</h1>
+      )
     }
   }
   
-  class Game extends React.Component {
+  class Website extends React.Component {
     render() {
       return (
-        <div className="game">
-          <div className="game-board">
-            <Board />
+        <div className="weather-app">
+          <div className="weather-app-navbar">
+            <Navbar/>
           </div>
-          <div className="game-info">
-            <div>{/* status */}</div>
-            <ol>{/* TODO */}</ol>
+          <div className="weather-app-content">
+            <Content/>
           </div>
         </div>
       );
@@ -82,7 +48,7 @@ class Square extends React.Component {
   // ========================================
   
   ReactDOM.render(
-    <Game />,
+    <Website />,
     document.getElementById('root')
   );
   

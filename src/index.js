@@ -1,12 +1,27 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import axios from 'axios';
+import './index.css';
 
-  class Navbar extends React.Component {
+  class Header extends React.Component {
     render() {
       return (
-        <h1>Navbar</h1>
+        <div className='header'>        
+          <TodaysWeather/>
+        </div>
       );
+    }
+  }
+
+  class TodaysWeather extends React.Component{
+    render(){
+      axios.get('http://api.openweathermap.org/data/2.5/weather?lat=35&lon=139&appid=22ea153019299dbbb2ee4028bd3ff603')
+      .then((weatherInfo)=>{
+        
+      })
+      return (
+        <div className='todaysWeather'><h2>Weather</h2></div>
+      )
     }
   }
 
@@ -30,7 +45,6 @@ import axios from 'axios';
           }else{
             tempHolder = dataArray[i].dt_txt.slice(0,10);
             datesSet.push(i); 
-            // datesSet.push(dataArray[i].dt_txt.slice(0,10));
           }
         }
         if(datesSet === []){
@@ -39,7 +53,6 @@ import axios from 'axios';
           resolve(datesSet);
         }
       })
- 
     }
 
     render(){
@@ -50,6 +63,11 @@ import axios from 'axios';
           for(let index of indexes){
             console.log(weatherInfo.data.list[index]);
             // This is where everything is going to happen
+            // icon = 'http://openweathermap.org/img/w/'+weatherInfo.data.list[index].weather[0].icon+'.png';
+            let img = document.createElement('img');
+            img.src ='http://openweathermap.org/img/w/'+weatherInfo.data.list[index].weather[0].icon+'.png';
+            document.getElementById('icons').appendChild(img);
+ 
           }
         })
         .catch((err)=>{
@@ -61,18 +79,17 @@ import axios from 'axios';
         console.log(err);
       })
       return(
-        <h1>Content</h1>
-      )
+        <div id='icons'></div>
+      );
     }
   }
   
   class Website extends React.Component {
     render() {
+
       return (
         <div className="weather-app">
-          <div className="weather-app-navbar">
-            <Navbar/>
-          </div>
+          <Header/>
           <div className="weather-app-content">
             <Content/>
           </div>

@@ -1,14 +1,9 @@
 html,body{
-    width:100% !important;
+    /* width:100% !important; */
     margin:0px;
     padding:0px;
     font-family: 'Oswald', sans-serif;
 
-}
-
-canvas{
-    width:100% !important;
-    /* height:500px !important; */
 }
 
 .header{
@@ -20,27 +15,45 @@ canvas{
     background-size: cover;
     background-position:bottom;
     position: relative;
+    text-align: center;
 }
-.todaysWeather-container{
+.weatherCard-container{
     position: relative;
-    height:100%;width:100%;
-    top:0;
-}
-.todaysWeather{
     width:90%;
+    top:100px;
+    max-width:800px;
+    min-height:400px;
+    display:inline-block;
+    margin:0px;
+    margin-right:30px;
+    border-radius: 20px;
+}
+.weatherCard{
+    width:100%;
+    max-width:800px;
     min-height:400px;
     background:linear-gradient(rgba(80,80,80,0.8),rgba(0,0,0,0.8));
     display:inline-block;
     color:#fff;
     position: absolute;
-    left:0;right:0;top:100px;
+    left:0;right:0;top:0px;
     margin:auto;
     border-radius:20px;
     border:1px solid #333;
     padding:10px;
+    text-align: left;
 }
-
-.todaysWeather-logo{
+.weatherCard-responsive{
+    margin:0px !important;
+    background:linear-gradient(rgba(0,0,0,0.8),rgba(0, 0, 255, 0.7));
+    /* background-image: url('images/10d.jpg'); */
+    color:white !important;
+}
+.weatherCard-content-container{
+    background:url('images/10d.jpg');
+    background-size: cover;
+}
+.weatherCard-logo{
     min-width:100px;
     min-height:100px;
     margin:10px;padding:0;
@@ -50,13 +63,13 @@ canvas{
     border:2px solid #000;
     padding:10px;
 }
-.todaysWeather-temp{
+.weatherCard-temp{
     font-size:35pt;
     border:2px solid #fff;
     display: inline-block;
     padding:15px;
 }
-.todaysWeather-mainName{
+.weatherCard-mainName{
     color: #fff !important;
 }
 h1,h2,h3,h4,h5,h6{
@@ -64,20 +77,55 @@ h1,h2,h3,h4,h5,h6{
 }
 hr{width:80%;}
 
-.todaysWeather-moreinfo h1,.todaysWeather-moreinfo h2,.todaysWeather-moreinfo h3,.todaysWeather-moreinfo h4,.todaysWeather-moreinfo h5,.todaysWeather-moreinfo h6{
+.weatherCard-moreinfo h1,.weatherCard-moreinfo h2,.weatherCard-moreinfo h3,.weatherCard-moreinfo h4,.weatherCard-moreinfo h5,.weatherCard-moreinfo h6{
     display:inline-block;
     margin-top:0px;
     margin-bottom:0px;
-    color:#ccc;
+    color:#fff;
 }
-.todaysWeather-relative{
+.weatherCard-relative{
     position: relative;
+    height:100%;width:100%;
 }
 .weather-heading1{
     color:#999;
 }
+.content-responsive{
+    text-align: center;
+    width: 100%;
+    height:600px;
+    overflow-x: auto;
+    white-space: nowrap;
+}
+::-webkit-scrollbar {
+    width: 5px;
+    height:3px;
+}
+::-webkit-scrollbar-track {
+    background: transparent; 
+}
+::-webkit-scrollbar-thumb {
+    background: #000; 
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+    background: #555; 
+}
 @media (max-width:700px){
     .header{
         height:700px !important;
+    }
+    .weatherCard{
+        width:100%;
+    }
+    .weatherCard-container{
+        width:90%;
+    }
+    .content-responsive{
+        width: 100%;
+        height:600px;
+        overflow-x: auto;
+        white-space: nowrap;
     }
 }

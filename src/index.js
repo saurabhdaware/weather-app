@@ -1,14 +1,15 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import {BrowserRouter as Router,Route } from 'react-router-dom';
+import SearchCity from './search.js';
 import axios from 'axios';
 import './index.css';
-
   class Header extends React.Component {
     render() {
       return (
         <div className='header w3-card-4'>
         <div className='w3-row'>
-          <div className='w3-col l6 m12 s12 todaysWeather-relative'>
+          <div className='w3-col l6 m12 s12'>
             <TodaysWeather/>
             </div>
           </div>
@@ -48,13 +49,13 @@ import './index.css';
     }
 
     render(){
-      return generateCard(this.state);
+      return generateCard(this.state,'todaysWeather');
     }
   }
 
   class Content extends React.Component{
-    constructor(){
-      super();
+    constructor(props){
+      super(props);
       this.state = {
         data:{
           sys:{},
@@ -63,7 +64,8 @@ import './index.css';
           wind:{}
         },
         ico:'',
-        temp:0
+        temp:0,
+        dt_txt:''
       }
       this.renderDataContent();
     }
@@ -93,12 +95,17 @@ import './index.css';
         .then((weatherInfo)=>{
           this.filterDataWithDate(weatherInfo.data.list)
           .then((indexes)=>{
-            for(let index of indexes){
-              console.log(weatherInfo.data.list[index]);
+            // for(let index of indexes){
               // This is where everything is going to happen
               // icon = 'http://openweathermap.org/img/w/'+weatherInfo.data.list[index].weather[0].icon+'.png'
-              this.setState({data:weatherInfo.data.list[0],ico:`http://openweathermap.org/img/w/${weatherInfo.data.list[0].weather[0].icon.slice(0,2)}d.png`,temp:parseInt(weatherInfo.data.list[0].main.temp - 273.15)});
-            }
+              this.setState({
+                data:weatherInfo.data.list[indexes[this.props.index]],
+                ico:`http://openweathermap.org/img/w/${weatherInfo.data.list[indexes[this.props.index]].weather[0].icon.slice(0,2)}d.png`,
+                temp:parseInt(weatherInfo.data.list[indexes[this.props.index]].main.temp - 273.15),
+                dt_txt:weatherInfo.data.list[indexes[this.props.index]].dt_txt.slice(0,10)
+              });
+
+            // }
           })
           .catch((err)=>{
             console.log(err);
@@ -113,43 +120,73 @@ import './index.css';
     }
 
     render(){
-      return generateCard(this.state);
+      return generateCard(this.state,'nextWeather');
     }
   }
 
-  function generateCard(state){
-    return (
-      <div className='todaysWeather-container'>
-      <div className='todaysWeather w3-card-4'>
-        <img className='todaysWeather-logo' src={state.ico} alt='logo' /><br/> 
-        <h1 className='todaysWeather-temp w3-card-4'>{state.temp} <small><small><sup><sup>o</sup>C</sup></small></small></h1><br/>
-        <h3>{state.data.name}, {state.data.sys.country}</h3>
-        <center><hr/></center>
-        <div className='w3-row todaysWeather-moreinfo'>
-          <div className='w3-col'>
-            <h3 className='todaysWeather-mainName'>{state.data.weather[0].main} : </h3><h3>{state.data.weather[0].description}</h3><br/>
-            <h5>Wind Speed : {state.data.wind.speed} m/sec</h5><br/>
-            <h5>Humidity : {state.data.main.humidity}%</h5><br/>
-            <h5>Pressure : {state.data.main.pressure} hPa</h5><br/>
+  function generateCard(state,type){
+    if(type === 'todaysWeather'){
+      return (
+        <div className='weatherCard-container'>
+        <div className='weatherCard w3-card-4'>
+          <img className='weatherCard-logo' src={state.ico} alt='logo' /><br/> 
+          <h1 className='weatherCard-temp w3-card-4'>{state.temp} <small><small><sup><sup>o</sup>C</sup></small></small></h1><br/>
+          <h3>{state.data.name}, {state.data.sys.country}</h3>
+          <center><hr/></center>
+          <div className='w3-row weatherCard-moreinfo'>
+            <div className='w3-col'>
+              <h3 className='weatherCard-mainName'>{state.data.weather[0].main} : </h3><h3>{state.data.weather[0].description}</h3><br/>
+              <h5>Wind Speed : {state.data.wind.speed} m/sec</h5><br/>
+              <h5>Humidity : {state.data.main.humidity}%</h5><br/>
+              <h5>Pressure : {state.data.main.pressure} hPa</h5><br/>
+            </div>
           </div>
         </div>
-      </div>
-      </div>
-    )
+        </div>
+      )
+    }else{
+      return (
+        <div className='weatherCard-container weatherCard-content-container'>
+        <div className='weatherCard weatherCard-responsive w3-card-4'>
+          <img className='weatherCard-logo' src={state.ico} alt='logo' /><br/> 
+          <h1 className='weatherCard-temp w3-card-4'>{state.temp} <small><small><sup><sup>o</sup>C</sup></small></small></h1><br/>
+          <h3><b>{state.dt_txt}</b></h3>
+          <center><hr/></center>
+          <div className='w3-row weatherCard-moreinfo'>
+            <div className='w3-col'>
+              <h3 className='weatherCard-mainName'>{state.data.weather[0].main} : </h3><h3>{state.data.weather[0].description}</h3><br/>
+              <h5>Wind Speed : {state.data.wind.speed} m/sec</h5><br/>
+              <h5>Humidity : {state.data.main.humidity}%</h5><br/>
+              <h5>Pressure : {state.data.main.pressure} hPa</h5><br/>
+            </div>
+          </div>
+        </div>
+        </div>
+      )
+    }  
   }
 
   
   class Website extends React.Component {
     render() {
-
       return (
         <div className="weather-app">
           <Header/>
           <div className="weather-app-content">
           <br/>
           <br/>
-           <center><h2 className='weather-heading1'><b>Weather next few days</b></h2></center><br/>
-            <Content/>
+           <center><h2 className='weather-heading1'><b>Weather of next few days</b></h2></center><br/>
+           <div className='content-responsive' id='content-responsive'>
+           <Content index={1}/>
+           <Content index={2}/>
+           <Content index={3}/>
+           <Content index={4}/>
+           <Content index={5}/>
+           </div>
+           <br/><br/><br/>
+          </div>
+          <div className='weather-app-searchCity'>
+            <input type='search'/>
           </div>
         </div>
       );
@@ -157,9 +194,17 @@ import './index.css';
   }
   
   // ========================================
-  
-  ReactDOM.render(
-    <Website />,
+  const App = () => (
+    <Router>
+      <div>
+        <Route exact path='/' render={()=><Website/>}/>
+        <Route path='/search' render={()=><SearchCity/>}/>
+      </div>
+    </Router>
+)
+export default Header;
+ReactDOM.render(
+    <App />,
     document.getElementById('root')
-  );
+);
   

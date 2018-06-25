@@ -19,6 +19,7 @@ canvas{
     background-image:url('images/10d.jpg');
     background-size: cover;
     background-position:bottom;
+    position: relative;
 }
 .todaysWeather-container{
     position: relative;
@@ -68,6 +69,12 @@ hr{width:80%;}
     margin-top:0px;
     margin-bottom:0px;
     color:#ccc;
+}
+.todaysWeather-relative{
+    position: relative;
+}
+.weather-heading1{
+    color:#999;
 }
 @media (max-width:700px){
     .header{

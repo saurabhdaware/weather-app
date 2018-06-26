@@ -103,6 +103,16 @@ hr{width:80%;}
     color:#fff;
     text-align: center;
 }
+.weather-app-footer{
+    padding:9px;
+    background-color: #333;
+    color:#fff;
+    text-align: right;
+}
+.weather-app-footer a{
+    text-decoration:none;
+    font-weight:bold;
+}
 ::-webkit-scrollbar {
     width: 5px;
     height:3px;

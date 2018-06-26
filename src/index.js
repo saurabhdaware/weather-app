@@ -166,6 +166,15 @@ import './index.css';
     }  
   }
 
+  class Footer extends React.Component{
+    render(){
+      return (
+        <div className='weather-app-footer w3-card-4'>
+          <h5><a href="https://github.com/saurabhdaware">Github</a></h5>
+        </div>
+      )
+    }
+  }
   
   class Website extends React.Component {
     render() {
@@ -189,6 +198,7 @@ import './index.css';
             <h1>Want to know weather at any other location?</h1><br/><br/>
             <a href='search' className='w3-btn w3-blue'>Search By City</a>
           </div>
+          <Footer/>
         </div>
       );
     }

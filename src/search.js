@@ -45,7 +45,7 @@ class CityWeather extends React.Component{
         <div className='weather-app-search-bar'>
             <input name='city' id='cityName' className='weather-app-search-bar-input' type='search' /> <button onClick={()=>this.handleClick()} className='w3-btn w3-blue weather-app-search-bar-button'>Search By City</button>
         </div>
-        <div className='header w3-card-4'>
+        <div className='header w3-card-4 ' id='header'>
             <div className='w3-row'>
                 <div className='w3-col l6 m12 s12'>
                     <div className='weather-app-search'>

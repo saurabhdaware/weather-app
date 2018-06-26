@@ -97,6 +97,12 @@ hr{width:80%;}
     overflow-x: auto;
     white-space: nowrap;
 }
+.weather-app-searchCity{
+    padding:50px;
+    background-color: #222;
+    color:#fff;
+    text-align: center;
+}
 ::-webkit-scrollbar {
     width: 5px;
     height:3px;
@@ -127,5 +133,12 @@ hr{width:80%;}
         height:600px;
         overflow-x: auto;
         white-space: nowrap;
+    }
+    .weather-app-searchCity{
+        padding-left:0px;
+        padding-right:0px;
+    }
+    .weather-app-searchCity h1{
+        font-size:15pt;
     }
 }

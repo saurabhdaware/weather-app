@@ -124,7 +124,7 @@ import './index.css';
     }
   }
 
-  function generateCard(state,type){
+  export function generateCard(state,type){
     if(type === 'todaysWeather'){
       return (
         <div className='weatherCard-container'>
@@ -186,7 +186,8 @@ import './index.css';
            <br/><br/><br/>
           </div>
           <div className='weather-app-searchCity'>
-            <input type='search'/>
+            <h1>Want to know weather at any other location?</h1><br/><br/>
+            <a href='search' className='w3-btn w3-blue'>Search By City</a>
           </div>
         </div>
       );
@@ -202,7 +203,7 @@ import './index.css';
       </div>
     </Router>
 )
-export default Header;
+// module.exports =  generateCard;
 ReactDOM.render(
     <App />,
     document.getElementById('root')
